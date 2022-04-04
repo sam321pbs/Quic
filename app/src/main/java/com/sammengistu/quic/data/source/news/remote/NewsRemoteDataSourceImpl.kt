@@ -1,7 +1,7 @@
 package com.sammengistu.quic.data.source.news.remote
 
 import android.util.Log
-import com.sammengistu.quic.data.models.news.News
+import com.sammengistu.quic.data.models.News
 import com.sammengistu.quic.data.source.Result
 import com.sammengistu.quic.data.source.news.remote.retrofit.NewsApiService
 import com.sammengistu.quic.di.scope.IoDispatcher
@@ -11,8 +11,8 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class NewsRemoteDataSourceImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val newsApiService: NewsApiService
+    private val newsApiService: NewsApiService,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): NewsRemoteDataSource {
 
     override suspend fun getTopNews(country: String, pageSize: String): Result<News> =
@@ -23,7 +23,6 @@ class NewsRemoteDataSourceImpl @Inject constructor(
                     Result.Success(response.body()).also {
                         Log.d("NewsRemoteDataSourceImp", response.body().toString())
                     }
-
                 } else {
                     Result.Success(null)
                 }

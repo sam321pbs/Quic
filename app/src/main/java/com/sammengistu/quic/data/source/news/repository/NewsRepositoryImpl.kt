@@ -1,6 +1,6 @@
 package com.sammengistu.quic.data.source.news.repository
 
-import com.sammengistu.quic.data.models.news.News
+import com.sammengistu.quic.data.models.News
 import com.sammengistu.quic.data.source.news.remote.NewsRemoteDataSource
 import com.sammengistu.quic.data.source.Result
 import com.sammengistu.quic.di.scope.IoDispatcher

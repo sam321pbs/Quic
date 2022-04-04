@@ -18,8 +18,10 @@ android {
         versionName = "1.0"
 
         val NEWS_API_KEY: String = gradleLocalProperties(rootDir).getProperty("NEWS_API_KEY")
+        val WEATHER_API_KEY: String = gradleLocalProperties(rootDir).getProperty("WEATHER_API_KEY")
 
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
+        buildConfigField("String", "WEATHER_API_KEY", WEATHER_API_KEY)
     }
 
     buildTypes {
@@ -63,7 +65,15 @@ dependencies {
 
     // DI
     implementation(DependencyInjection.hiltAndroid)
+    testImplementation("junit:junit:4.12")
     kapt(DependencyInjection.hiltCompiler)
+
+    // play
+    implementation(GooglePlay.playServiceLocation)
+
+    // glide
+    implementation(Glide.glide)
+    annotationProcessor(Glide.glideCompiler)
 }
 
 kapt {

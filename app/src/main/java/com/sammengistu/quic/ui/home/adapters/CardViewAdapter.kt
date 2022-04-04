@@ -1,4 +1,4 @@
-package com.sammengistu.quic.ui.fragments.home.adapters
+package com.sammengistu.quic.ui.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sammengistu.quic.R
 import com.sammengistu.quic.databinding.ItemWeatherBinding
-import com.sammengistu.quic.ui.fragments.home.CardViewType
-import com.sammengistu.quic.ui.fragments.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.fragments.home.viewholders.BaseCardViewHolder
-import com.sammengistu.quic.ui.fragments.home.viewholders.NewsViewHolder
-import com.sammengistu.quic.ui.fragments.home.viewholders.WeatherViewHolder
+import com.sammengistu.quic.ui.home.CardViewType
+import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
+import com.sammengistu.quic.ui.home.viewholders.BaseCardViewHolder
+import com.sammengistu.quic.ui.home.viewholders.ArticleViewHolder
+import com.sammengistu.quic.ui.home.viewholders.WeatherViewHolder
 
 class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
 
@@ -30,11 +30,11 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
                     false
                     )
                 )
-            CardViewType.NEWS.ordinal ->
-                NewsViewHolder(
+            CardViewType.ARTICLE.ordinal ->
+                ArticleViewHolder(
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_news,
+                        R.layout.item_article,
                         viewGroup,
                         false
                     )
@@ -55,6 +55,11 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
     fun updateList(dataSet: List<CardViewAdapterItem>) {
         this.dataSet.clear()
         this.dataSet.addAll(dataSet)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item: CardViewAdapterItem) {
+        dataSet.add(item)
         notifyDataSetChanged()
     }
 }

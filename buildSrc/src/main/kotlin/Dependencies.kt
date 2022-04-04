@@ -1,5 +1,3 @@
-import java.net.http.HttpClient
-
 object AndroidX {
     object Version {
         const val androidxCore = "1.7.0"
@@ -26,6 +24,7 @@ object Network {
         const val retrofit = "2.9.0"
         const val gson = "2.9.0"
     }
+
     const val retrofit = "com.squareup.retrofit2:retrofit:${Version.retrofit}"
     const val gsonConverter = "com.squareup.retrofit2:converter-gson:${Version.retrofit}"
     const val gson = "com.google.code.gson:gson:${Version.gson}"
@@ -39,4 +38,22 @@ object DependencyInjection {
     const val hiltAndroid = "com.google.dagger:hilt-android:${Version.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Version.hilt}"
     const val hiltGradle = "com.google.dagger:hilt-android-gradle-plugin:${Version.hilt}"
+}
+
+object GooglePlay {
+    object Version {
+        const val location = "19.0.1"
+    }
+
+    const val playServiceLocation =
+        "com.google.android.gms:play-services-location:${Version.location}"
+}
+
+object Glide {
+    object Version {
+        const val glide = "4.13.0"
+    }
+
+    const val glide = "com.github.bumptech.glide:glide:${Version.glide}"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
 }

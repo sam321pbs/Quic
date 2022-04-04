@@ -1,19 +1,16 @@
-package com.sammengistu.quic.ui.fragments.home
+package com.sammengistu.quic.ui.home.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sammengistu.quic.data.models.Weather
 import com.sammengistu.quic.databinding.FragmentHomeBinding
-import com.sammengistu.quic.ui.fragments.BaseFragment
-import com.sammengistu.quic.ui.fragments.home.adapters.CardViewAdapter
-import com.sammengistu.quic.ui.fragments.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.fragments.home.viewmodels.HomeViewModel
+import com.sammengistu.quic.ui.home.adapters.CardViewAdapter
+import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
+import com.sammengistu.quic.ui.home.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,14 +40,19 @@ class HomeFragment: BaseFragment() {
         }
 
         with(viewModel) {
-            news.observe(viewLifecycleOwner) { news ->
-                if (news?.articles?.isNotEmpty() == true) {
-                    adapter.updateList(news.articles as List<CardViewAdapterItem>)
-                }
+            news.observe(viewLifecycleOwner) { articles ->
+                // todo: handle null
+                adapter.updateList(articles as List<CardViewAdapterItem>)
+            }
+
+            weather.observe(viewLifecycleOwner) { weather ->
+                // todo: handle null
+                adapter.addItem(weather as CardViewAdapterItem)
             }
         }
 
         binding.recyclerView.adapter = adapter
         viewModel.fetchTopNews()
+        viewModel.fetchCurrentWeather(activity)
     }
 }

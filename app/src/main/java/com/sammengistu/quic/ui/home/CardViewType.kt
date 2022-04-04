@@ -1,8 +1,8 @@
-package com.sammengistu.quic.ui.fragments.home
+package com.sammengistu.quic.ui.home
 
 enum class CardViewType {
     WEATHER,
-    NEWS,
+    ARTICLE,
     GLOBAL_NEWS,
     STOCK
 }

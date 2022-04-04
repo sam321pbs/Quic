@@ -5,9 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.27759857177734376" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/item_article.xml" value="0.37250554323725055" />
         <entry key="app/src/main/res/layout/item_basic.xml" value="0.11911231884057971" />
         <entry key="app/src/main/res/layout/item_news.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/item_weather.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/item_weather.xml" value="0.2333065709323748" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.2006340579710145" />
       </map>
     </option>
