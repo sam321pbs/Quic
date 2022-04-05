@@ -1,6 +1,7 @@
 package com.sammengistu.quic.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,10 +50,15 @@ class HomeFragment: BaseFragment() {
                 // todo: handle null
                 adapter.addItem(weather as CardViewAdapterItem)
             }
+
+            finance.observe(viewLifecycleOwner) { summary ->
+                Log.d("HomeFrag", summary?.marketSummaryResponse?.result.toString())
+            }
         }
 
         binding.recyclerView.adapter = adapter
         viewModel.fetchTopNews()
         viewModel.fetchCurrentWeather(activity)
+        viewModel.fetchMarketSummary()
     }
 }

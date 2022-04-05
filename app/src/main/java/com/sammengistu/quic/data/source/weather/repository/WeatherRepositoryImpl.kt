@@ -6,7 +6,6 @@ import com.sammengistu.quic.data.source.weather.remote.WeatherRemoteDataSource
 import com.sammengistu.quic.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(

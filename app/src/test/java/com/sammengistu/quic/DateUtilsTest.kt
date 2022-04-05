@@ -1,9 +1,8 @@
 package com.sammengistu.quic
 
 import com.sammengistu.quic.utils.DateUtils
-import org.junit.Test
-
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class DateUtilsTest {
     @Test

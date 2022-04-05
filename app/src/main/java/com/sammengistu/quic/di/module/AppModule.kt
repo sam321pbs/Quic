@@ -6,8 +6,4 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @InstallIn(ViewModelComponent::class)
 @Module
-abstract class AppModule {
-
-
-
-}
+abstract class AppModule

@@ -1,5 +1,7 @@
 package com.sammengistu.quic.di.module
 
+import com.sammengistu.quic.data.source.finance.remote.FinanceRemoteDataSource
+import com.sammengistu.quic.data.source.finance.remote.FinanceRemoteDataSourceImpl
 import com.sammengistu.quic.data.source.news.remote.NewsRemoteDataSource
 import com.sammengistu.quic.data.source.news.remote.NewsRemoteDataSourceImpl
 import com.sammengistu.quic.data.source.weather.remote.WeatherRemoteDataSource
@@ -18,4 +20,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindWeatherRemoteDataSource(remoteDataSourceImpl: WeatherRemoteDataSourceImpl): WeatherRemoteDataSource
+
+    @Binds
+    abstract fun bindFinanceRemoteDataSource(remoteDataSourceImpl: FinanceRemoteDataSourceImpl): FinanceRemoteDataSource
 }

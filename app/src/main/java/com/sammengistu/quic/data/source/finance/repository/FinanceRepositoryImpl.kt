@@ -1,21 +1,20 @@
-package com.sammengistu.quic.data.source.news.repository
+package com.sammengistu.quic.data.source.finance.repository
 
-import com.sammengistu.quic.data.models.News
+import com.sammengistu.quic.data.models.FinanceResponse
 import com.sammengistu.quic.data.source.Result
-import com.sammengistu.quic.data.source.news.remote.NewsRemoteDataSource
+import com.sammengistu.quic.data.source.finance.remote.FinanceRemoteDataSource
 import com.sammengistu.quic.di.scope.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
-    private val remoteDataSource: NewsRemoteDataSource,
+class FinanceRepositoryImpl @Inject constructor(
+    private val remoteDataSource: FinanceRemoteDataSource,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-): NewsRepository {
-
-    override suspend fun getTopNews(country: String, pageSize: String): Result<News?> {
+): FinanceRepository {
+    override suspend fun getMarketSummary(lang: String, region: String): Result<FinanceResponse?> {
         return withContext(ioDispatcher) {
-            when (val response = remoteDataSource.getTopNews(country, pageSize)) {
+            when (val response = remoteDataSource.getMarketSummary(lang, region)) {
                 is Result.Success -> {
                     if (response.data != null) {
                         Result.Success(response.data)

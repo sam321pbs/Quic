@@ -1,5 +1,7 @@
 package com.sammengistu.quic.di.module
 
+import com.sammengistu.quic.data.source.finance.repository.FinanceRepository
+import com.sammengistu.quic.data.source.finance.repository.FinanceRepositoryImpl
 import com.sammengistu.quic.data.source.news.repository.NewsRepository
 import com.sammengistu.quic.data.source.news.repository.NewsRepositoryImpl
 import com.sammengistu.quic.data.source.weather.repository.WeatherRepository
@@ -18,4 +20,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindWeatherRepository(repo: WeatherRepositoryImpl): WeatherRepository
+
+    @Binds
+    abstract fun bindFinanceRepository(repo: FinanceRepositoryImpl): FinanceRepository
 }

@@ -1,6 +1,7 @@
 package com.sammengistu.quic.di.module
 
 import com.sammengistu.quic.BuildConfig
+import com.sammengistu.quic.data.source.finance.remote.retrofit.FinanceApiService
 import com.sammengistu.quic.data.source.news.remote.retrofit.NewsApiService
 import com.sammengistu.quic.data.source.weather.remote.retrofit.WeatherApiService
 import dagger.Module
@@ -56,5 +57,26 @@ class NetworkModule {
             .client(builder.build())
             .build()
         return retrofit.create(WeatherApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFinanceApiService(): FinanceApiService {
+        val builder = OkHttpClient.Builder().addInterceptor { chain ->
+            val request = chain.request().newBuilder()
+            val originalHttpUrl = chain.request().url()
+            val url = originalHttpUrl.newBuilder().build()
+//            request.header("accept", "application/json")
+//            request.header("X-API-KEY", BuildConfig.FINANCE_API_KEY)
+            request.url(url)
+            return@addInterceptor chain.proceed(request.build())
+        }
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://yfapi.net/")
+            .addConverterFactory(GsonConverterFactory.create())
+//            .client(builder.build())
+            .build()
+        return retrofit.create(FinanceApiService::class.java)
     }
 }

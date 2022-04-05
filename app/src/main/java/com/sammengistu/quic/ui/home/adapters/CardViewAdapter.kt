@@ -8,8 +8,8 @@ import com.sammengistu.quic.R
 import com.sammengistu.quic.databinding.ItemWeatherBinding
 import com.sammengistu.quic.ui.home.CardViewType
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.home.viewholders.BaseCardViewHolder
 import com.sammengistu.quic.ui.home.viewholders.ArticleViewHolder
+import com.sammengistu.quic.ui.home.viewholders.BaseCardViewHolder
 import com.sammengistu.quic.ui.home.viewholders.WeatherViewHolder
 
 class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {

@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sammengistu.quic.data.models.FinanceResponse
 import com.sammengistu.quic.data.source.Result
+import com.sammengistu.quic.data.source.finance.repository.FinanceRepository
 import com.sammengistu.quic.data.source.news.NewsConstants
 import com.sammengistu.quic.data.source.news.repository.NewsRepository
 import com.sammengistu.quic.data.source.weather.repository.WeatherRepository
@@ -20,7 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val newsRepository: NewsRepository,
-    private val weatherRepository: WeatherRepository
+    private val weatherRepository: WeatherRepository,
+    private val financeRepository: FinanceRepository
 ) : ViewModel() {
 
     private val TAG = "HomeViewModel"
@@ -30,6 +33,9 @@ class HomeViewModel @Inject constructor(
 
     private val _weather = MutableLiveData<WeatherUIItem?>()
     val weather = _weather as LiveData<WeatherUIItem?>
+
+    private val _finance = MutableLiveData<FinanceResponse?>()
+    val finance = _finance as LiveData<FinanceResponse?>
 
     fun fetchTopNews() {
         viewModelScope.launch {
@@ -74,7 +80,21 @@ class HomeViewModel @Inject constructor(
                 Log.e(TAG, "Location came back null")
             }
         }
+    }
 
-
+    fun fetchMarketSummary() {
+        viewModelScope.launch {
+            val result = financeRepository.getMarketSummary("en", "US")
+            when (result) {
+                is Result.Success -> {
+                    result.data?.let {
+                        _finance.value = it
+                    }
+                }
+                is Result.Error -> {
+                    Log.e("HomeViewModel", result.exception.toString())
+                }
+            }
+        }
     }
 }

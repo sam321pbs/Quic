@@ -19,9 +19,11 @@ android {
 
         val NEWS_API_KEY: String = gradleLocalProperties(rootDir).getProperty("NEWS_API_KEY")
         val WEATHER_API_KEY: String = gradleLocalProperties(rootDir).getProperty("WEATHER_API_KEY")
+        val FINANCE_API_KEY: String = gradleLocalProperties(rootDir).getProperty("FINANCE_API_KEY")
 
         buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
         buildConfigField("String", "WEATHER_API_KEY", WEATHER_API_KEY)
+        buildConfigField("String", "FINANCE_API_KEY", FINANCE_API_KEY)
     }
 
     buildTypes {
