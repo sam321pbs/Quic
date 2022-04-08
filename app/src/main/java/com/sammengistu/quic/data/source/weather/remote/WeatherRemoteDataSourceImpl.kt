@@ -19,11 +19,9 @@ class WeatherRemoteDataSourceImpl @Inject constructor(
             return@withContext try {
                 val response = weatherApiService.getCurrentWeather(lat, long, "imperial")
                 if (response.isSuccessful) {
-                    Result.Success(response.body()).also {
-                        Log.d("WeatherDataSourceImpl", response.body().toString())
-                    }
+                    Result.Success(response.body())
                 } else {
-                    Result.Success(null)
+                    Result.Error(Exception(response.errorBody().toString()))
                 }
             } catch (exception: Exception) {
                 Result.Error(exception)

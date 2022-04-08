@@ -16,16 +16,8 @@ class NewsRepositoryImpl @Inject constructor(
     override suspend fun getTopNews(country: String, pageSize: String): Result<News?> {
         return withContext(ioDispatcher) {
             when (val response = remoteDataSource.getTopNews(country, pageSize)) {
-                is Result.Success -> {
-                    if (response.data != null) {
-                        Result.Success(response.data)
-                    } else {
-                        Result.Success(null)
-                    }
-                }
-                else -> {
-                    Result.Error(Exception("Got a failed result"))
-                }
+                is Result.Success -> Result.Success(response.data)
+                else -> Result.Error(Exception("Got a failed result"))
             }
         }
     }

@@ -16,12 +16,8 @@ class WeatherRepositoryImpl @Inject constructor(
     override suspend fun getCurrentWeather(lat: String, long: String): Result<CurrentWeather?> {
         return withContext(ioDispatcher) {
             when(val result = remoteDataSource.getCurrentWeather(lat, long)) {
-                is Result.Success -> {
-                    Result.Success(result.data)
-                }
-                else -> {
-                    Result.Error(Exception("Error getting weather"))
-                }
+                is Result.Success -> Result.Success(result.data)
+                else -> Result.Error(Exception("Error getting weather"))
             }
         }
     }

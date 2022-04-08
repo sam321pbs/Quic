@@ -12,5 +12,5 @@ interface NewsApiService {
     suspend fun getTopNews(
         @Query("country") country: String,
         @Query("pageSize") pageSize: String
-    ): Response<News>
+    ): Response<News?>
 }

@@ -13,6 +13,7 @@ import com.sammengistu.quic.data.source.news.NewsConstants
 import com.sammengistu.quic.data.source.news.repository.NewsRepository
 import com.sammengistu.quic.data.source.weather.repository.WeatherRepository
 import com.sammengistu.quic.ui.home.data.ArticleUIItem
+import com.sammengistu.quic.ui.home.data.MarketUIItem
 import com.sammengistu.quic.ui.home.data.WeatherUIItem
 import com.sammengistu.quic.utils.LocationUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,9 @@ class HomeViewModel @Inject constructor(
     private val financeRepository: FinanceRepository
 ) : ViewModel() {
 
-    private val TAG = "HomeViewModel"
+    companion object {
+        const val TAG = "HomeViewModel"
+    }
 
     private val _news = MutableLiveData<List<ArticleUIItem>?>()
     val news = _news as LiveData<List<ArticleUIItem>?>
@@ -34,8 +37,8 @@ class HomeViewModel @Inject constructor(
     private val _weather = MutableLiveData<WeatherUIItem?>()
     val weather = _weather as LiveData<WeatherUIItem?>
 
-    private val _finance = MutableLiveData<FinanceResponse?>()
-    val finance = _finance as LiveData<FinanceResponse?>
+    private val _finance = MutableLiveData<List<MarketUIItem>?>()
+    val finance = _finance as LiveData<List<MarketUIItem>?>
 
     fun fetchTopNews() {
         viewModelScope.launch {
@@ -48,7 +51,8 @@ class HomeViewModel @Inject constructor(
                     }
                 }
                 is Result.Error -> {
-                    Log.e("HomeViewModel", result.exception.toString())
+                    Log.e(TAG, result.exception.toString())
+                    _news.value = null
                 }
             }
         }
@@ -70,9 +74,7 @@ class HomeViewModel @Inject constructor(
                         }
                         is Result.Error -> {
                             Log.e(TAG, result.exception.toString())
-                        }
-                        else -> {
-                            Log.e(TAG, "Error weather result")
+                            _weather.value = null
                         }
                     }
                 }
@@ -84,15 +86,20 @@ class HomeViewModel @Inject constructor(
 
     fun fetchMarketSummary() {
         viewModelScope.launch {
-            val result = financeRepository.getMarketSummary("en", "US")
-            when (result) {
+            when (val result = financeRepository.getMarketSummary("en", "US")) {
                 is Result.Success -> {
-                    result.data?.let {
-                        _finance.value = it
+                    result.data?.let { response ->
+                        val list = mutableListOf<MarketUIItem>()
+                        for (market in response.marketSummaryResponse?.result ?: emptyList()) {
+                            list.add(MarketUIItem.transform(market))
+                        }
+                        _finance.value =
+                            list.filter { it.exchange == "SNP" || it.exchange == "DJI" || it.exchange == "NIM"}
                     }
                 }
                 is Result.Error -> {
-                    Log.e("HomeViewModel", result.exception.toString())
+                    Log.e(TAG, result.exception.toString())
+                    _finance.value = null
                 }
             }
         }

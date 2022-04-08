@@ -13,16 +13,14 @@ class NewsRemoteDataSourceImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): NewsRemoteDataSource {
 
-    override suspend fun getTopNews(country: String, pageSize: String): Result<News> =
+    override suspend fun getTopNews(country: String, pageSize: String): Result<News?> =
         withContext(ioDispatcher) {
             return@withContext try {
                 val response = newsApiService.getTopNews(country, pageSize)
                 if (response.isSuccessful) {
-                    Result.Success(response.body()).also {
-//                        Log.d("NewsRemoteDataSourceImp", response.body().toString())
-                    }
+                    Result.Success(response.body())
                 } else {
-                    Result.Success(null)
+                    Result.Error(Exception(response.errorBody().toString()))
                 }
             } catch (exception: Exception) {
                 Result.Error(exception)

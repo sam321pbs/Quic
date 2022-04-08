@@ -18,11 +18,9 @@ class FinanceRemoteDataSourceImpl @Inject constructor(
             return@withContext try {
                 val response = financeApiService.getMarketSummary(lang, region)
                 if (response.isSuccessful) {
-                    Result.Success(response.body()).also {
-                        Log.d("FinanceRemoteDataImpl", response.body().toString())
-                    }
+                    Result.Success(response.body())
                 } else {
-                    Result.Success(null)
+                    Result.Error(Exception(response.errorBody().toString()))
                 }
             } catch (exception: Exception) {
                 Result.Error(exception)

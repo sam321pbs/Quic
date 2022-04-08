@@ -15,16 +15,8 @@ class FinanceRepositoryImpl @Inject constructor(
     override suspend fun getMarketSummary(lang: String, region: String): Result<FinanceResponse?> {
         return withContext(ioDispatcher) {
             when (val response = remoteDataSource.getMarketSummary(lang, region)) {
-                is Result.Success -> {
-                    if (response.data != null) {
-                        Result.Success(response.data)
-                    } else {
-                        Result.Success(null)
-                    }
-                }
-                else -> {
-                    Result.Error(Exception("Got a failed result"))
-                }
+                is Result.Success -> Result.Success(response.data)
+                else -> Result.Error(Exception("Got a failed result"))
             }
         }
     }

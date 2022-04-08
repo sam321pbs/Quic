@@ -10,6 +10,7 @@ import com.sammengistu.quic.ui.home.CardViewType
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
 import com.sammengistu.quic.ui.home.viewholders.ArticleViewHolder
 import com.sammengistu.quic.ui.home.viewholders.BaseCardViewHolder
+import com.sammengistu.quic.ui.home.viewholders.MarketViewHolder
 import com.sammengistu.quic.ui.home.viewholders.WeatherViewHolder
 
 class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
@@ -39,7 +40,15 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
                         false
                     )
                 )
-
+            CardViewType.MARKET.ordinal ->
+                MarketViewHolder(
+                    DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.item_market,
+                        viewGroup,
+                        false
+                    )
+                )
             else -> WeatherViewHolder(ItemWeatherBinding.inflate(inflater))
         }
     }
@@ -52,14 +61,18 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
 
     override fun getItemCount() = dataSet.size
 
-    fun updateList(dataSet: List<CardViewAdapterItem>) {
-        this.dataSet.clear()
-        this.dataSet.addAll(dataSet)
+    fun clearList() {
+        dataSet.clear()
         notifyDataSetChanged()
     }
 
     fun addItem(item: CardViewAdapterItem) {
         dataSet.add(item)
+        notifyDataSetChanged()
+    }
+
+    fun addList(items: List<CardViewAdapterItem>) {
+        dataSet.addAll(items)
         notifyDataSetChanged()
     }
 }

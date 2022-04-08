@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment: BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapter: CardViewAdapter
 
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -32,7 +33,7 @@ class HomeFragment: BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = CardViewAdapter()
+        adapter = CardViewAdapter()
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context).apply {
@@ -40,25 +41,44 @@ class HomeFragment: BaseFragment() {
             }
         }
 
-        with(viewModel) {
-            news.observe(viewLifecycleOwner) { articles ->
-                // todo: handle null
-                adapter.updateList(articles as List<CardViewAdapterItem>)
-            }
-
-            weather.observe(viewLifecycleOwner) { weather ->
-                // todo: handle null
-                adapter.addItem(weather as CardViewAdapterItem)
-            }
-
-            finance.observe(viewLifecycleOwner) { summary ->
-                Log.d("HomeFrag", summary?.marketSummaryResponse?.result.toString())
-            }
-        }
-
         binding.recyclerView.adapter = adapter
+        setupViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchData()
+    }
+
+    private fun fetchData() {
+        adapter.clearList()
         viewModel.fetchTopNews()
         viewModel.fetchCurrentWeather(activity)
         viewModel.fetchMarketSummary()
+    }
+
+    private fun setupViewModel() {
+        with(viewModel) {
+            news.observe(viewLifecycleOwner) { articles ->
+                if (articles != null) {
+                    adapter.addList(articles)
+                }
+                binding.errorMessage.visibility = View.GONE
+            }
+
+            weather.observe(viewLifecycleOwner) { weather ->
+                if (weather != null) {
+                    adapter.addItem(weather)
+                }
+                binding.errorMessage.visibility = View.GONE
+            }
+
+            finance.observe(viewLifecycleOwner) { markets ->
+                if (markets != null) {
+                    adapter.addList(markets)
+                }
+                binding.errorMessage.visibility = View.GONE
+            }
+        }
     }
 }
