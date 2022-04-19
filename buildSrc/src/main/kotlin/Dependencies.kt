@@ -6,6 +6,7 @@ object AndroidX {
         const val lifeCycle = "2.4.1"
         const val legacy = "1.0.0"
         const val fragment = "1.4.1"
+        const val cardView = "1.0.0"
     }
 
     const val androidxCore = "androidx.core:core-ktx:${Version.androidxCore}"
@@ -16,6 +17,7 @@ object AndroidX {
     const val fragmentTesting = "androidx.fragment:fragment-testing:${Version.fragment}"
     const val viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifeCycle}"
+    const val cardView = "androidx.cardview:cardview:${Version.cardView}"
 }
 
 

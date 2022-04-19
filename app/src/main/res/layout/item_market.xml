@@ -2,7 +2,6 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -12,15 +11,12 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        card_view:cardCornerRadius="4dp">
+        style="@style/CardTile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="@dimen/medium_padding">
 
             <TextView
                 android:id="@+id/market_short_name"
@@ -36,8 +32,8 @@
                 android:id="@+id/market_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="16sp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:textSize="@dimen/text_size_medium"
                 android:text="@{item.currentPrice}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +43,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/margin_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/market_price">
@@ -65,7 +61,7 @@
                     android:id="@+id/market_change_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:text="@{item.changeAmount}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/market_exchange"
@@ -75,8 +71,8 @@
                     android:id="@+id/market_change_percent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="@dimen/margin_xxlarge"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:text="@{item.changePercent}"
                     app:layout_constraintStart_toEndOf="@+id/market_change_amount"
                     app:layout_constraintTop_toBottomOf="@+id/market_prev_close"
@@ -86,7 +82,7 @@
                     android:id="@+id/market_prev_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
+                    android:layout_marginStart="@dimen/margin_xxlarge"
                     android:text="@{item.previousClose}"
                     app:layout_constraintStart_toEndOf="@+id/market_exchange"
                     app:layout_constraintTop_toTopOf="parent"

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -11,21 +10,18 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        card_view:cardCornerRadius="4dp">
+        style="@style/CardTile">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="@dimen/medium_padding">
 
             <TextView
                 android:id="@+id/article_source_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_zero"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:text="@{item.sourceName}"
                 app:layout_constraintEnd_toStartOf="@+id/article_imageView"
                 app:layout_constraintStart_toStartOf="parent"
@@ -34,13 +30,13 @@
 
             <TextView
                 android:id="@+id/article_title_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_zero"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:text="@{item.title}"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_medium"
                 app:layout_constraintEnd_toStartOf="@+id/article_imageView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/article_source_tv"
@@ -48,10 +44,10 @@
 
             <TextView
                 android:id="@+id/article_description_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_zero"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:visibility="gone"
                 android:text="@{item.description}"
                 app:layout_constraintEnd_toStartOf="@+id/article_imageView"
@@ -72,10 +68,10 @@
 
             <TextView
                 android:id="@+id/article_published_at_tv"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_zero"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:text="@{item.publishedAt}"
                 app:layout_constraintEnd_toStartOf="@+id/article_imageView"
                 app:layout_constraintStart_toStartOf="parent"

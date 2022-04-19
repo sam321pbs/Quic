@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="size_zero">0dp</dimen>
+    <!-- margins -->
+    <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_xlarge">20dp</dimen>
+    <dimen name="margin_xxlarge">32dp</dimen>
+
+    <!-- radius -->
+    <dimen name="radius_small">4dp</dimen>
+
+    <!-- padding -->
+    <dimen name="medium_padding">8dp</dimen>
+
+    <!-- text size -->
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+</resources>

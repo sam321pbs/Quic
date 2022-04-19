@@ -56,6 +56,7 @@ dependencies {
     implementation(AndroidX.viewModel)
     implementation(AndroidX.liveData)
     implementation(AndroidX.legacySupport)
+    implementation(AndroidX.cardView)
 
     // testing
     implementation(AndroidX.fragmentTesting)
