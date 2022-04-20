@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sammengistu.quic.databinding.FragmentHomeBinding
 import com.sammengistu.quic.ui.home.adapters.CardViewAdapter
-import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
 import com.sammengistu.quic.ui.home.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +20,10 @@ class HomeFragment: BaseFragment() {
     private lateinit var adapter: CardViewAdapter
 
     private val viewModel by viewModels<HomeViewModel>()
+
+    companion object {
+        const val TAG = "HomeFragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

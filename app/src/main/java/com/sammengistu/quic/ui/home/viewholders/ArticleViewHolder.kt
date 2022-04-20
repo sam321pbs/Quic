@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.sammengistu.quic.databinding.ItemArticleBinding
 import com.sammengistu.quic.ui.home.data.ArticleUIItem
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
+import com.sammengistu.quic.ui.home.handlers.WebviewHandler
 
 class ArticleViewHolder(
     private val binding: ItemArticleBinding
@@ -13,6 +14,8 @@ class ArticleViewHolder(
 
     override fun bindView(item: CardViewAdapterItem) {
         binding.item = item as ArticleUIItem
+        binding.handler = WebviewHandler()
+        binding.context = binding.root.context
         binding.executePendingBindings()
     }
 

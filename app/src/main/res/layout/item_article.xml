@@ -7,6 +7,13 @@
         <variable
             name="item"
             type="com.sammengistu.quic.ui.home.data.ArticleUIItem" />
+        <variable
+            name="handler"
+            type="com.sammengistu.quic.ui.home.handlers.WebviewHandler"/>
+
+        <variable
+            name="context"
+            type="android.content.Context"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -77,6 +84,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/article_description_tv"
                 tools:text="Published At" />
+
+            <TextView
+                android:id="@+id/article_read_more_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="Read More"
+                android:textColor="#2196F3"
+                android:onClick="@{() -> handler.onClickReadMore(context, item)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/article_published_at_tv" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

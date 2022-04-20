@@ -1,4 +1,4 @@
-package com.sammengistu.quic.ui
+package com.sammengistu.quic.ui.home.activites
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
