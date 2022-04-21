@@ -1,6 +1,5 @@
 package com.sammengistu.quic.data.source.finance.remote
 
-import android.util.Log
 import com.sammengistu.quic.data.models.FinanceResponse
 import com.sammengistu.quic.data.source.Result
 import com.sammengistu.quic.data.source.finance.remote.retrofit.FinanceApiService

@@ -1,6 +1,5 @@
 package com.sammengistu.quic.data.source.weather.remote
 
-import android.util.Log
 import com.sammengistu.quic.data.models.CurrentWeather
 import com.sammengistu.quic.data.source.Result
 import com.sammengistu.quic.data.source.weather.remote.retrofit.WeatherApiService

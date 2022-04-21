@@ -68,11 +68,13 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
 
     fun addItem(item: CardViewAdapterItem) {
         dataSet.add(item)
+        dataSet.sortBy { it?.cardViewType?.ordinal }
         notifyDataSetChanged()
     }
 
     fun addList(items: List<CardViewAdapterItem>) {
         dataSet.addAll(items)
+        dataSet.sortBy { it?.cardViewType?.ordinal }
         notifyDataSetChanged()
     }
 }

@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sammengistu.quic.data.models.FinanceResponse
 import com.sammengistu.quic.data.source.Result
 import com.sammengistu.quic.data.source.finance.repository.FinanceRepository
 import com.sammengistu.quic.data.source.news.NewsConstants

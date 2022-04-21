@@ -1,11 +1,9 @@
 package com.sammengistu.quic.ui.home.activites
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.sammengistu.quic.R
 
 class QuicWebActivity: AppCompatActivity() {

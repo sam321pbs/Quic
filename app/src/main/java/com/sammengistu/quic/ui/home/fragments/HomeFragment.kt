@@ -1,13 +1,13 @@
 package com.sammengistu.quic.ui.home.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sammengistu.quic.databinding.FragmentHomeBinding
 import com.sammengistu.quic.ui.home.adapters.CardViewAdapter
 import com.sammengistu.quic.ui.home.viewmodels.HomeViewModel
@@ -18,6 +18,7 @@ class HomeFragment: BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: CardViewAdapter
+    private lateinit var swipeLayout: SwipeRefreshLayout
 
     private val viewModel by viewModels<HomeViewModel>()
 
@@ -31,6 +32,7 @@ class HomeFragment: BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
+        swipeLayout = binding.swipeRefreshLayout
         return binding.root
     }
 
@@ -38,13 +40,8 @@ class HomeFragment: BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = CardViewAdapter()
 
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = RecyclerView.VERTICAL
-            }
-        }
-
-        binding.recyclerView.adapter = adapter
+        setupSwipeLayout()
+        setupRecyclerView()
         setupViewModel()
     }
 
@@ -53,7 +50,24 @@ class HomeFragment: BaseFragment() {
         fetchData()
     }
 
+    private fun setupSwipeLayout() {
+        swipeLayout.apply {
+            setOnRefreshListener { fetchData() }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = RecyclerView.VERTICAL
+            }
+        }
+
+        binding.recyclerView.adapter = adapter
+    }
+
     private fun fetchData() {
+        swipeLayout.isRefreshing = true
         adapter.clearList()
         viewModel.fetchTopNews()
         viewModel.fetchCurrentWeather(activity)
@@ -66,22 +80,27 @@ class HomeFragment: BaseFragment() {
                 if (articles != null) {
                     adapter.addList(articles)
                 }
-                binding.errorMessage.visibility = View.GONE
+                onLoadingComplete()
             }
 
             weather.observe(viewLifecycleOwner) { weather ->
                 if (weather != null) {
                     adapter.addItem(weather)
                 }
-                binding.errorMessage.visibility = View.GONE
+                onLoadingComplete()
             }
 
             finance.observe(viewLifecycleOwner) { markets ->
                 if (markets != null) {
                     adapter.addList(markets)
                 }
-                binding.errorMessage.visibility = View.GONE
+                onLoadingComplete()
             }
         }
+    }
+
+    private fun onLoadingComplete() {
+        swipeLayout.isRefreshing = false
+        binding.errorMessage.visibility = View.GONE
     }
 }
