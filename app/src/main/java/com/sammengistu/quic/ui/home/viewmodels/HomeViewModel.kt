@@ -41,8 +41,9 @@ class HomeViewModel @Inject constructor(
 
     fun fetchTopNews() {
         viewModelScope.launch {
-            val result = newsRepository.getTopNews(NewsConstants.Country.US, NewsConstants.Size.MAX)
-            when (result) {
+            when (
+                val result = newsRepository.getTopNews(NewsConstants.Country.US, NewsConstants.Size.MAX)
+            ) {
                 is Result.Success -> {
                     result.data?.let {
                         val articles = ArticleUIItem.transform(it)

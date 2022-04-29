@@ -4,6 +4,7 @@ import com.sammengistu.quic.data.models.CurrentWeather
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+
 // https://openweathermap.org/current#current_JSON
 interface WeatherApiService {
 

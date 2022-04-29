@@ -62,16 +62,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideFinanceApiService(): FinanceApiService {
-        val builder = OkHttpClient.Builder().addInterceptor { chain ->
-            val request = chain.request().newBuilder()
-            val originalHttpUrl = chain.request().url()
-            val url = originalHttpUrl.newBuilder().build()
-//            request.header("accept", "application/json")
-//            request.header("X-API-KEY", BuildConfig.FINANCE_API_KEY)
-            request.url(url)
-            return@addInterceptor chain.proceed(request.build())
-        }
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://yfapi.net/")
             .addConverterFactory(GsonConverterFactory.create())
