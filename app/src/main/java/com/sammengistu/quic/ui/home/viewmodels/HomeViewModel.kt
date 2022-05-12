@@ -6,11 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sammengistu.quic.data.source.Result
-import com.sammengistu.quic.data.source.finance.repository.FinanceRepository
-import com.sammengistu.quic.data.source.news.NewsConstants
-import com.sammengistu.quic.data.source.news.repository.NewsRepository
-import com.sammengistu.quic.data.source.weather.repository.WeatherRepository
 import com.sammengistu.quic.ui.home.data.ArticleUIItem
 import com.sammengistu.quic.ui.home.data.MarketUIItem
 import com.sammengistu.quic.ui.home.data.WeatherUIItem
@@ -18,6 +13,13 @@ import com.sammengistu.quic.ui.home.data.transformers.transformArticlesToUiItem
 import com.sammengistu.quic.ui.home.data.transformers.transformMarketToUiItem
 import com.sammengistu.quic.ui.home.data.transformers.transformWeatherToUiItem
 import com.sammengistu.quic.utils.LocationUtils
+import com.sammengistu.quicnetworking.data.source.finance.repository.FinanceRepository
+import com.sammengistu.quicnetworking.data.source.news.NewsConstants
+import com.sammengistu.quicnetworking.data.source.news.repository.NewsRepository
+import com.sammengistu.quicnetworking.data.source.Result
+import com.sammengistu.quicnetworking.data.source.finance.FinanceConstants
+import com.sammengistu.quicnetworking.data.source.weather.WeatherConstants
+import com.sammengistu.quicnetworking.data.source.weather.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,7 +47,7 @@ class HomeViewModel @Inject constructor(
     fun fetchTopNews() {
         viewModelScope.launch {
             when (
-                val result = newsRepository.getTopNews(NewsConstants.Country.US, NewsConstants.Size.MAX)
+                val result = newsRepository.getTopNews(NewsConstants.Country.US, NewsConstants.Size.PAGE_MAX)
             ) {
                 is Result.Success -> {
                     result.data?.let {
@@ -66,7 +68,8 @@ class HomeViewModel @Inject constructor(
                 viewModelScope.launch {
                     val result = weatherRepository.getCurrentWeather(
                         location.latitude.toString(),
-                        location.longitude.toString()
+                        location.longitude.toString(),
+                        WeatherConstants.UNIT.IMPERIAL
                     )
                     when (result) {
                         is Result.Success -> {
@@ -86,7 +89,7 @@ class HomeViewModel @Inject constructor(
 
     fun fetchMarketSummary() {
         viewModelScope.launch {
-            when (val result = financeRepository.getMarketSummary("en", "US")) {
+            when (val result = financeRepository.getMarketSummary(FinanceConstants.Language.LANG_EN, FinanceConstants.Region.US)) {
                 is Result.Success -> {
                     result.data?.let { response ->
                         val list = response.marketSummaryResponse?.result?.transformMarketToUiItem()

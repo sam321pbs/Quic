@@ -20,6 +20,12 @@ object AndroidX {
     const val cardView = "androidx.cardview:cardview:${Version.cardView}"
 }
 
+object Kotlin {
+    object Version {
+        const val kotlinCoroutines = "1.6.1"
+    }
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.kotlinCoroutines}"
+}
 
 object Network {
     object Version {
@@ -58,4 +64,14 @@ object Glide {
 
     const val glide = "com.github.bumptech.glide:glide:${Version.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Version.glide}"
+}
+
+object Testing {
+    object Version {
+        const val jUnit = "4.13.2"
+        const val mockitoVersion = "3.+"
+    }
+
+    const val jUnit = "junit:junit:${Version.jUnit}"
+    const val mockito = "org.mockito:mockito-core:${Version.mockitoVersion}"
 }

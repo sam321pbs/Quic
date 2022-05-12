@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("com.android.application")
@@ -16,14 +15,6 @@ android {
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
-
-        val NEWS_API_KEY: String = gradleLocalProperties(rootDir).getProperty("NEWS_API_KEY")
-        val WEATHER_API_KEY: String = gradleLocalProperties(rootDir).getProperty("WEATHER_API_KEY")
-        val FINANCE_API_KEY: String = gradleLocalProperties(rootDir).getProperty("FINANCE_API_KEY")
-
-        buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
-        buildConfigField("String", "WEATHER_API_KEY", WEATHER_API_KEY)
-        buildConfigField("String", "FINANCE_API_KEY", FINANCE_API_KEY)
     }
 
     buildTypes {
@@ -58,9 +49,6 @@ dependencies {
     implementation(AndroidX.legacySupport)
     implementation(AndroidX.cardView)
 
-    // testing
-    implementation(AndroidX.fragmentTesting)
-
     // network
     implementation(Network.retrofit)
     implementation(Network.gsonConverter)
@@ -68,7 +56,11 @@ dependencies {
 
     // DI
     implementation(DependencyInjection.hiltAndroid)
-    testImplementation("junit:junit:4.12")
+    implementation(fileTree(mapOf(
+        "dir" to "/Users/samuelmengistu/AndroidStudioProjects/Quic/app/lib",
+        "include" to listOf("*.aar", "*.jar")
+    )))
+
     kapt(DependencyInjection.hiltCompiler)
 
     // play
@@ -77,6 +69,13 @@ dependencies {
     // glide
     implementation(Glide.glide)
     annotationProcessor(Glide.glideCompiler)
+
+    // testing
+    implementation(AndroidX.fragmentTesting)
+    testImplementation(Testing.jUnit)
+    testImplementation(Testing.mockito)
+
+
 }
 
 kapt {
