@@ -15,6 +15,8 @@ android {
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
+
+        testInstrumentationRunner = Espresso.androidJunitRunner
     }
 
     buildTypes {
@@ -71,10 +73,14 @@ dependencies {
     annotationProcessor(Glide.glideCompiler)
 
     // testing
-    implementation(AndroidX.fragmentTesting)
-    testImplementation(Testing.jUnit)
     testImplementation(Testing.mockito)
-
+    implementation(Espresso.espressoCore)
+    implementation(Espresso.testRunner)
+    implementation(Espresso.testRules)
+    implementation(Espresso.junitKtx)
+    implementation(Espresso.fragmentTesting)
+    androidTestImplementation(Espresso.hiltAndroidTesting)
+    kaptAndroidTest(DependencyInjection.hiltCompiler)
 
 }
 

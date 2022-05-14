@@ -5,7 +5,6 @@ object AndroidX {
         const val material = "1.5.0"
         const val lifeCycle = "2.4.1"
         const val legacy = "1.0.0"
-        const val fragment = "1.4.1"
         const val cardView = "1.0.0"
     }
 
@@ -14,7 +13,6 @@ object AndroidX {
     const val material = "com.google.android.material:material:${Version.material}"
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Version.lifeCycle}"
     const val legacySupport = "androidx.legacy:legacy-support-v4:${Version.legacy}"
-    const val fragmentTesting = "androidx.fragment:fragment-testing:${Version.fragment}"
     const val viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifeCycle}"
     const val cardView = "androidx.cardview:cardview:${Version.cardView}"
@@ -74,4 +72,23 @@ object Testing {
 
     const val jUnit = "junit:junit:${Version.jUnit}"
     const val mockito = "org.mockito:mockito-core:${Version.mockitoVersion}"
+}
+
+object Espresso {
+    object Version {
+        const val core = "3.4.0"
+        const val runner = "1.4.0"
+        const val junitKtx = "1.1.3"
+        const val fragment_version = "1.4.1"
+        const val hiltAndroidTesting = "2.42"
+    }
+
+    const val androidJunitRunner = "com.sammengistu.quic.helpers.QuicTestRunner"
+    const val espressoCore = "androidx.test.espresso:espresso-core:${Version.core}"
+    const val testRunner = "androidx.test:runner:${Version.runner}"
+    const val testRules = "androidx.test:rules:${Version.runner}"
+    const val junitKtx = "androidx.test.ext:junit-ktx:${Version.junitKtx}"
+    const val fragmentTesting = "androidx.fragment:fragment-testing:${Version.fragment_version}"
+    const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Version.hiltAndroidTesting}"
+    const val hiltCompiler = "com.google.dagger:hilt-compiler:${Version.hiltAndroidTesting}"
 }

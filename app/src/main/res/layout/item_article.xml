@@ -17,6 +17,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/article_card_view"
         style="@style/CardTile">
 
         <androidx.constraintlayout.widget.ConstraintLayout

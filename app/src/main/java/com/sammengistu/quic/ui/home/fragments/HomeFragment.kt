@@ -21,6 +21,7 @@ class HomeFragment: BaseFragment() {
     private lateinit var swipeLayout: SwipeRefreshLayout
 
     private val viewModel by viewModels<HomeViewModel>()
+    var disableDataFetching = false
 
     companion object {
         const val TAG = "HomeFragment"
@@ -67,6 +68,7 @@ class HomeFragment: BaseFragment() {
     }
 
     private fun fetchData() {
+        if (disableDataFetching) return
         swipeLayout.isRefreshing = true
         adapter.clearList()
         viewModel.fetchTopNews()
@@ -102,5 +104,6 @@ class HomeFragment: BaseFragment() {
     private fun onLoadingComplete() {
         swipeLayout.isRefreshing = false
         binding.errorMessage.visibility = View.GONE
+        binding.recyclerView.visibility = View.VISIBLE
     }
 }

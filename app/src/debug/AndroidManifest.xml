@@ -15,17 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quic">
 
-        <activity android:name=".ui.home.activites.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name="HiltTestActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.home.activites.QuicWebActivity"/>
-        <activity android:name=".testing.HiltTestActivity"/>
     </application>
 
 </manifest>
