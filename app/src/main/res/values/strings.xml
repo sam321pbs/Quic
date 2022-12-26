@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Quic</string>
-    <string name="weather_icon">Weather Icon</string>
+    <string name="weather_icon_content_description">Weather Icon</string>
+    <string name="home_loading_message">Your Quic Update should show up soon. If you don\'t see any information check your internet connection or try again later.</string>
+    <string name="article_image_content_description">Article Image</string>
+    <string name="article_read_more">Read More</string>
+    <string name="low">Low</string>
+    <string name="high">High</string>
 </resources>

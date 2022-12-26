@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sammengistu.quic.R
+import com.sammengistu.quic.databinding.ItemWeather2Binding
 import com.sammengistu.quic.databinding.ItemWeatherBinding
 import com.sammengistu.quic.ui.home.CardViewType
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
@@ -26,7 +27,7 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
                 WeatherViewHolder(
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_weather,
+                        R.layout.item_weather_2,
                         viewGroup,
                     false
                     )
@@ -49,7 +50,7 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
                         false
                     )
                 )
-            else -> WeatherViewHolder(ItemWeatherBinding.inflate(inflater))
+            else -> WeatherViewHolder(ItemWeather2Binding.inflate(inflater))
         }
     }
 

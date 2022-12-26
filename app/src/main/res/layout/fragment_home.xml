@@ -27,7 +27,7 @@
             android:id="@+id/error_message"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Your Quic Update should show up soon. If you don't see any information check your internet connection or try again later. "
+            android:text="@string/home_loading_message"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

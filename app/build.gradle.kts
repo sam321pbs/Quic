@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("com.android.application")
@@ -17,6 +18,20 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = Espresso.androidJunitRunner
+
+        val NEWS_API_KEY: String = gradleLocalProperties(
+            rootDir
+        ).getProperty("NEWS_API_KEY")
+        val WEATHER_API_KEY: String = gradleLocalProperties(
+            rootDir
+        ).getProperty("WEATHER_API_KEY")
+        val FINANCE_API_KEY: String = gradleLocalProperties(
+            rootDir
+        ).getProperty("FINANCE_API_KEY")
+
+        buildConfigField("String", "NEWS_API_KEY", NEWS_API_KEY)
+        buildConfigField("String", "WEATHER_API_KEY", WEATHER_API_KEY)
+        buildConfigField("String", "FINANCE_API_KEY", FINANCE_API_KEY)
     }
 
     buildTypes {
@@ -58,10 +73,6 @@ dependencies {
 
     // DI
     implementation(DependencyInjection.hiltAndroid)
-    implementation(fileTree(mapOf(
-        "dir" to "/Users/samuelmengistu/AndroidStudioProjects/Quic/app/lib",
-        "include" to listOf("*.aar", "*.jar")
-    )))
 
     kapt(DependencyInjection.hiltCompiler)
 

@@ -85,7 +85,7 @@
                 android:layout_height="25dp"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:contentDescription="@string/weather_icon"
+                android:contentDescription="@string/weather_icon_content_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/weather_group"
