@@ -86,7 +86,6 @@ class HomeFragment: BaseFragment() {
     private fun setupViewModel() {
         with(viewModel) {
             feed.observe(viewLifecycleOwner) { feedState ->
-//                Log.d(TAG, "Counter ${count}")
                 Log.d(TAG, "collect feed state")
                 when(feedState) {
                     is HomeFeedUiState.Success -> {
@@ -96,29 +95,6 @@ class HomeFragment: BaseFragment() {
                 onLoadingComplete()
             }
         }
-
-//        viewModel.counter.onEach {
-//            Log.d(TAG, "Counter ${it}")
-//            onLoadingComplete()
-//        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-
-
-
-//                viewModel.feed.collect { feedState ->
-//                    Log.d(TAG, "collect feed state")
-//                    when(feedState) {
-//                        is HomeFeedUiState.Success -> {
-//                            handleSuccessFeedState(feedState)
-//                        }
-//                    }
-//                    onLoadingComplete()
-//                }
-//            }
-//        }
         fetchData()
     }
 
