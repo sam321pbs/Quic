@@ -4,8 +4,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.sammengistu.quic.databinding.ItemArticleBinding
-import com.sammengistu.quic.ui.home.data.ArticleUIItem
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
+import com.sammengistu.quic.ui.home.data.uiitem.ArticleUIItem
 import com.sammengistu.quic.ui.home.handlers.WebviewHandler
 
 class ArticleViewHolder(

@@ -2,7 +2,7 @@ package com.sammengistu.quic.ui.home.viewholders
 
 import com.sammengistu.quic.databinding.ItemMarketBinding
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.home.data.MarketUIItem
+import com.sammengistu.quic.ui.home.data.uiitem.MarketUIItem
 
 class MarketViewHolder(private val binder: ItemMarketBinding): BaseCardViewHolder(binder.root) {
 

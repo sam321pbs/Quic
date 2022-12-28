@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="com.sammengistu.quic.ui.home.data.MarketUIItem" />
+            type="com.sammengistu.quic.ui.home.data.uiitem.MarketUIItem" />
     </data>
 
     <androidx.cardview.widget.CardView

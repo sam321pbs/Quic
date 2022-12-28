@@ -65,6 +65,8 @@ dependencies {
     implementation(AndroidX.liveData)
     implementation(AndroidX.legacySupport)
     implementation(AndroidX.cardView)
+    implementation(AndroidX.lifecycleRuntime)
+    implementation(AndroidX.fragmentKtx)
 
     // network
     implementation(Network.retrofit)

@@ -3,9 +3,10 @@ object AndroidX {
         const val androidxCore = "1.7.0"
         const val appcompat = "1.4.1"
         const val material = "1.5.0"
-        const val lifeCycle = "2.4.1"
+        const val lifeCycle = "2.5.1"
         const val legacy = "1.0.0"
         const val cardView = "1.0.0"
+        const val fragmentKtx = "1.5.5"
     }
 
     const val androidxCore = "androidx.core:core-ktx:${Version.androidxCore}"
@@ -16,6 +17,9 @@ object AndroidX {
     const val viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Version.lifeCycle}"
     const val cardView = "androidx.cardview:cardview:${Version.cardView}"
+    const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Version.lifeCycle}"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Version.fragmentKtx}"
+
 }
 
 object Kotlin {

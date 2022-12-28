@@ -1,12 +1,12 @@
 package com.sammengistu.quic.ui.home.data.transformers
 
-import com.sammengistu.quic.ui.home.data.ArticleUIItem
-import com.sammengistu.quic.ui.home.data.MarketUIItem
-import com.sammengistu.quic.ui.home.data.WeatherUIItem
-import com.sammengistu.quic.utils.DateUtils
 import com.sammengistu.quic.networking.data.models.Article
 import com.sammengistu.quic.networking.data.models.CurrentWeather
 import com.sammengistu.quic.networking.data.models.Market
+import com.sammengistu.quic.ui.home.data.uiitem.ArticleUIItem
+import com.sammengistu.quic.ui.home.data.uiitem.MarketUIItem
+import com.sammengistu.quic.ui.home.data.uiitem.WeatherUIItem
+import com.sammengistu.quic.utils.DateUtils
 
 fun List<Article>.transformArticlesToUiItem(): List<ArticleUIItem> = this.map { article ->
     ArticleUIItem(

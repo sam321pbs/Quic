@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sammengistu.quic.R
 import com.sammengistu.quic.databinding.ItemWeather2Binding
-import com.sammengistu.quic.databinding.ItemWeatherBinding
 import com.sammengistu.quic.ui.home.CardViewType
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
 import com.sammengistu.quic.ui.home.viewholders.ArticleViewHolder
@@ -62,18 +61,8 @@ class CardViewAdapter: RecyclerView.Adapter<BaseCardViewHolder>() {
 
     override fun getItemCount() = dataSet.size
 
-    fun clearList() {
-        dataSet.clear()
-        notifyDataSetChanged()
-    }
-
-    fun addItem(item: CardViewAdapterItem) {
-        dataSet.add(item)
-        dataSet.sortBy { it?.cardViewType?.ordinal }
-        notifyDataSetChanged()
-    }
-
     fun addList(items: List<CardViewAdapterItem>) {
+        dataSet.clear()
         dataSet.addAll(items)
         dataSet.sortBy { it?.cardViewType?.ordinal }
         notifyDataSetChanged()

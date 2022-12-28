@@ -3,7 +3,7 @@ package com.sammengistu.quic.ui.home.handlers
 import android.content.Context
 import android.content.Intent
 import com.sammengistu.quic.ui.home.activites.QuicWebActivity
-import com.sammengistu.quic.ui.home.data.ArticleUIItem
+import com.sammengistu.quic.ui.home.data.uiitem.ArticleUIItem
 
 class WebviewHandler {
 

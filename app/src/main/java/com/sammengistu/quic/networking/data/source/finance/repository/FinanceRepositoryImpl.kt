@@ -3,21 +3,14 @@ package com.sammengistu.quic.networking.data.source.finance.repository
 import com.sammengistu.quic.networking.data.models.FinanceResponse
 import com.sammengistu.quic.networking.data.source.Result
 import com.sammengistu.quic.networking.data.source.finance.remote.FinanceRemoteDataSource
-import com.sammengistu.quicnetworking.di.scope.IoDispatcher
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class FinanceRepositoryImpl @Inject constructor(
     private val remoteDataSource: FinanceRemoteDataSource,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): FinanceRepository {
-    override suspend fun getMarketSummary(lang: String, region: String): Result<FinanceResponse?> {
-        return withContext(ioDispatcher) {
-            when (val result = remoteDataSource.getMarketSummary(lang, region)) {
-                is Result.Success -> Result.Success(result.data)
-                is Result.Error -> Result.Error(result.exception)
-            }
-        }
+    override suspend fun getMarketSummary(lang: String, region: String): Flow<Result<FinanceResponse?>> = flow {
+        emit(remoteDataSource.getMarketSummary(lang, region))
     }
 }

@@ -1,11 +1,11 @@
 package com.sammengistu.quicnetworking.di.module
 
 import com.sammengistu.quic.networking.data.source.finance.repository.FinanceRepository
-import com.sammengistu.quic.networking.data.source.weather.repository.WeatherRepository
-import com.sammengistu.quic.networking.data.source.weather.repository.WeatherRepositoryImpl
 import com.sammengistu.quic.networking.data.source.finance.repository.FinanceRepositoryImpl
 import com.sammengistu.quic.networking.data.source.news.repository.NewsRepository
 import com.sammengistu.quic.networking.data.source.news.repository.NewsRepositoryImpl
+import com.sammengistu.quic.networking.data.source.weather.repository.WeatherRepository
+import com.sammengistu.quic.networking.data.source.weather.repository.WeatherRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

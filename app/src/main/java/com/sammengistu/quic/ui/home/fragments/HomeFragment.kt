@@ -1,6 +1,7 @@
 package com.sammengistu.quic.ui.home.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sammengistu.quic.databinding.FragmentHomeBinding
 import com.sammengistu.quic.ui.home.adapters.CardViewAdapter
+import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
+import com.sammengistu.quic.ui.home.data.states.HomeFeedUiState
+import com.sammengistu.quic.ui.home.data.states.MarketUiState
+import com.sammengistu.quic.ui.home.data.states.NewsUIState
+import com.sammengistu.quic.ui.home.data.states.WeatherUiState
 import com.sammengistu.quic.ui.home.viewmodels.HomeViewModel
+import com.sammengistu.quic.utils.LocationUtils
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment: BaseFragment() {
@@ -22,6 +30,9 @@ class HomeFragment: BaseFragment() {
 
     private val viewModel by viewModels<HomeViewModel>()
     var disableDataFetching = false
+
+    @Inject
+    lateinit var locationUtils: LocationUtils
 
     companion object {
         const val TAG = "HomeFragment"
@@ -46,11 +57,6 @@ class HomeFragment: BaseFragment() {
         setupViewModel()
     }
 
-    override fun onResume() {
-        super.onResume()
-        fetchData()
-    }
-
     private fun setupSwipeLayout() {
         swipeLayout.apply {
             setOnRefreshListener { fetchData() }
@@ -68,37 +74,77 @@ class HomeFragment: BaseFragment() {
     }
 
     private fun fetchData() {
-        if (disableDataFetching) return
+        if (disableDataFetching) {
+            return
+        }
         swipeLayout.isRefreshing = true
-        adapter.clearList()
-        viewModel.fetchTopNews()
-        viewModel.fetchCurrentWeather(activity)
-        viewModel.fetchMarketSummary()
+        locationUtils.getUserLocation {
+            viewModel.fetchFeed(it)
+        }
     }
 
     private fun setupViewModel() {
         with(viewModel) {
-            news.observe(viewLifecycleOwner) { articles ->
-                if (articles != null) {
-                    adapter.addList(articles)
-                }
-                onLoadingComplete()
-            }
-
-            weather.observe(viewLifecycleOwner) { weather ->
-                if (weather != null) {
-                    adapter.addItem(weather)
-                }
-                onLoadingComplete()
-            }
-
-            finance.observe(viewLifecycleOwner) { markets ->
-                if (markets != null) {
-                    adapter.addList(markets)
+            feed.observe(viewLifecycleOwner) { feedState ->
+//                Log.d(TAG, "Counter ${count}")
+                Log.d(TAG, "collect feed state")
+                when(feedState) {
+                    is HomeFeedUiState.Success -> {
+                        handleSuccessFeedState(feedState)
+                    }
                 }
                 onLoadingComplete()
             }
         }
+
+//        viewModel.counter.onEach {
+//            Log.d(TAG, "Counter ${it}")
+//            onLoadingComplete()
+//        }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+
+
+
+//                viewModel.feed.collect { feedState ->
+//                    Log.d(TAG, "collect feed state")
+//                    when(feedState) {
+//                        is HomeFeedUiState.Success -> {
+//                            handleSuccessFeedState(feedState)
+//                        }
+//                    }
+//                    onLoadingComplete()
+//                }
+//            }
+//        }
+        fetchData()
+    }
+
+    private fun handleSuccessFeedState(feedState: HomeFeedUiState.Success) {
+        val adapterItems = mutableListOf<CardViewAdapterItem>()
+        when(feedState.homeFeedUiItem.weatherUiState) {
+            is WeatherUiState.Success -> {
+                Log.d(TAG, "Success loading")
+                feedState.homeFeedUiItem.weatherUiState.weather?.let { adapterItems.add(it) }
+            }
+        }
+
+        when(feedState.homeFeedUiItem.newsUIState) {
+            is NewsUIState.Success -> {
+                adapterItems.addAll(feedState.homeFeedUiItem.newsUIState.news)
+            }
+        }
+
+        when(feedState.homeFeedUiItem.marketUiState) {
+            is MarketUiState.Success -> {
+                adapterItems.addAll(feedState.homeFeedUiItem.marketUiState.markets)
+            }
+        }
+        Log.d(TAG, "Items = ${adapterItems.size}")
+        adapter.addList(adapterItems)
+        onLoadingComplete()
     }
 
     private fun onLoadingComplete() {

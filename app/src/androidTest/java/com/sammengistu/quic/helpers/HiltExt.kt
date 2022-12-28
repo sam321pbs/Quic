@@ -2,13 +2,10 @@ package com.sammengistu.quic.helpers
 
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.core.internal.deps.dagger.internal.Preconditions
 import com.sammengistu.quic.testing.HiltTestActivity
-import com.sammengistu.quic.ui.home.fragments.HomeFragment
 
 
 /**

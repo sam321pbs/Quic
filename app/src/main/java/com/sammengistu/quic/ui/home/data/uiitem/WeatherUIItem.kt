@@ -1,6 +1,7 @@
-package com.sammengistu.quic.ui.home.data
+package com.sammengistu.quic.ui.home.data.uiitem
 
 import com.sammengistu.quic.ui.home.CardViewType
+import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
 
 data class WeatherUIItem(
     val cityName: String,

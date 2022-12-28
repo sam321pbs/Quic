@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.sammengistu.quic.ui.home.data.ArticleUIItem" />
+            type="com.sammengistu.quic.ui.home.data.uiitem.ArticleUIItem" />
         <variable
             name="handler"
             type="com.sammengistu.quic.ui.home.handlers.WebviewHandler"/>

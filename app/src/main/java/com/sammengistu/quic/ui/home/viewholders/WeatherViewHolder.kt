@@ -4,9 +4,8 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.sammengistu.quic.databinding.ItemWeather2Binding
-import com.sammengistu.quic.databinding.ItemWeatherBinding
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.home.data.WeatherUIItem
+import com.sammengistu.quic.ui.home.data.uiitem.WeatherUIItem
 
 class WeatherViewHolder(private val binder: ItemWeather2Binding): BaseCardViewHolder(binder.root) {
 

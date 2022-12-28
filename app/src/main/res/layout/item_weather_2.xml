@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.sammengistu.quic.ui.home.data.WeatherUIItem" />
+            type="com.sammengistu.quic.ui.home.data.uiitem.WeatherUIItem" />
     </data>
 
     <androidx.cardview.widget.CardView style="@style/CardTile">
