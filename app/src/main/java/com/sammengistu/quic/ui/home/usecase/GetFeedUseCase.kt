@@ -13,6 +13,7 @@ import com.sammengistu.quic.networking.data.source.news.NewsConstants
 import com.sammengistu.quic.networking.data.source.news.repository.NewsRepository
 import com.sammengistu.quic.networking.data.source.weather.WeatherConstants
 import com.sammengistu.quic.networking.data.source.weather.repository.WeatherRepository
+import com.sammengistu.quic.ui.home.data.UserLocation
 import com.sammengistu.quic.ui.home.data.states.HomeFeedUiState
 import com.sammengistu.quic.ui.home.data.states.MarketUiState
 import com.sammengistu.quic.ui.home.data.states.NewsUIState
@@ -22,9 +23,9 @@ import com.sammengistu.quic.ui.home.data.transformers.transformMarketToUiItem
 import com.sammengistu.quic.ui.home.data.transformers.transformWeatherToUiItem
 import com.sammengistu.quic.ui.home.data.uiitem.HomeFeedUiItem
 import com.sammengistu.quic.ui.home.data.uiitem.WeatherUIItem
-import com.sammengistu.quic.utils.UserLocation
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetFeedUseCase @Inject constructor(
@@ -38,7 +39,7 @@ class GetFeedUseCase @Inject constructor(
 
     suspend fun loadFeed(location: UserLocation?) {
         val getWeatherFlow = if (location == null) {
-            emptyFlow()
+            flow { emit(Result.Error(IllegalArgumentException(""))) }
         } else {
             weatherRepository.getCurrentWeather(
                 location.latitude.toString(),
@@ -63,7 +64,7 @@ class GetFeedUseCase @Inject constructor(
                 emptyList()
             }
 
-            val currentWeather: WeatherUIItem? = if (weather is Result.Success<CurrentWeather>) {
+            val currentWeather = if (weather is Result.Success<CurrentWeather>) {
                 weather.data?.transformWeatherToUiItem()
             } else {
                 null

@@ -1,10 +1,13 @@
 package com.sammengistu.quic.ui.home.fragments
 
+import android.Manifest
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +15,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sammengistu.quic.databinding.FragmentHomeBinding
 import com.sammengistu.quic.ui.home.adapters.CardViewAdapter
 import com.sammengistu.quic.ui.home.data.CardViewAdapterItem
-import com.sammengistu.quic.ui.home.data.states.HomeFeedUiState
-import com.sammengistu.quic.ui.home.data.states.MarketUiState
-import com.sammengistu.quic.ui.home.data.states.NewsUIState
-import com.sammengistu.quic.ui.home.data.states.WeatherUiState
+import com.sammengistu.quic.ui.home.data.states.*
 import com.sammengistu.quic.ui.home.viewmodels.HomeViewModel
 import com.sammengistu.quic.utils.LocationUtils
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,8 +35,9 @@ class HomeFragment: BaseFragment() {
     @Inject
     lateinit var locationUtils: LocationUtils
 
-    companion object {
-        const val TAG = "HomeFragment"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        locationUtils.requestLocationPermission(this@HomeFragment)
     }
 
     override fun onCreateView(
@@ -78,23 +80,32 @@ class HomeFragment: BaseFragment() {
             return
         }
         swipeLayout.isRefreshing = true
-        locationUtils.getUserLocation {
-            viewModel.fetchFeed(it)
-        }
+        // THIS WILL FETCH DATA AFTER GETTING LOCATION
+        locationUtils.getUserLocation()
     }
 
     private fun setupViewModel() {
-        with(viewModel) {
-            feed.observe(viewLifecycleOwner) { feedState ->
-                Log.d(TAG, "collect feed state")
+        with(viewLifecycleOwner) {
+            viewModel.feed.observe(this) { feedState ->
                 when(feedState) {
                     is HomeFeedUiState.Success -> {
                         handleSuccessFeedState(feedState)
                     }
+                    is HomeFeedUiState.Error -> { onFailedLoadingComplete() }
                 }
-                onLoadingComplete()
+            }
+
+            locationUtils.locationState.observe(this) {
+                when(it) {
+                    is LocationState.Success -> { viewModel.fetchFeed(it.userLocation) }
+                    is LocationState.NeedsPermission -> {
+                        viewModel.fetchFeed(null)
+                    }
+                    is LocationState.Error -> { viewModel.fetchFeed(null) }
+                }
             }
         }
+
         fetchData()
     }
 
@@ -102,30 +113,39 @@ class HomeFragment: BaseFragment() {
         val adapterItems = mutableListOf<CardViewAdapterItem>()
         when(feedState.homeFeedUiItem.weatherUiState) {
             is WeatherUiState.Success -> {
-                Log.d(TAG, "Success loading")
+                Timber.d("Success getting weather")
                 feedState.homeFeedUiItem.weatherUiState.weather?.let { adapterItems.add(it) }
             }
+            is WeatherUiState.Error -> { Timber.e("Error getting weather") }
         }
 
         when(feedState.homeFeedUiItem.newsUIState) {
             is NewsUIState.Success -> {
                 adapterItems.addAll(feedState.homeFeedUiItem.newsUIState.news)
             }
+            is NewsUIState.Error -> { Timber.e("Error getting news") }
         }
 
         when(feedState.homeFeedUiItem.marketUiState) {
             is MarketUiState.Success -> {
                 adapterItems.addAll(feedState.homeFeedUiItem.marketUiState.markets)
             }
+            is MarketUiState.Error -> { Timber.e("Error getting markets") }
         }
-        Log.d(TAG, "Items = ${adapterItems.size}")
+
         adapter.addList(adapterItems)
-        onLoadingComplete()
+        onSuccessLoadingComplete()
     }
 
-    private fun onLoadingComplete() {
+    private fun onSuccessLoadingComplete() {
         swipeLayout.isRefreshing = false
         binding.errorMessage.visibility = View.GONE
         binding.recyclerView.visibility = View.VISIBLE
+    }
+
+    private fun onFailedLoadingComplete() {
+        swipeLayout.isRefreshing = false
+        binding.errorMessage.visibility = View.VISIBLE
+        binding.recyclerView.visibility = View.GONE
     }
 }

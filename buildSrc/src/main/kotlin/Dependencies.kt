@@ -1,5 +1,6 @@
+
 object AndroidX {
-    object Version {
+    private object Version {
         const val androidxCore = "1.7.0"
         const val appcompat = "1.4.1"
         const val material = "1.5.0"
@@ -23,14 +24,14 @@ object AndroidX {
 }
 
 object Kotlin {
-    object Version {
+    private object Version {
         const val kotlinCoroutines = "1.6.1"
     }
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.kotlinCoroutines}"
 }
 
 object Network {
-    object Version {
+    private object Version {
         const val retrofit = "2.9.0"
         const val gson = "2.9.0"
     }
@@ -41,7 +42,7 @@ object Network {
 }
 
 object DependencyInjection {
-    object Version {
+    private object Version {
         const val hilt = "2.40.1"
     }
 
@@ -51,7 +52,7 @@ object DependencyInjection {
 }
 
 object GooglePlay {
-    object Version {
+    private object Version {
         const val location = "19.0.1"
     }
 
@@ -60,7 +61,7 @@ object GooglePlay {
 }
 
 object Glide {
-    object Version {
+    private object Version {
         const val glide = "4.13.0"
     }
 
@@ -69,7 +70,7 @@ object Glide {
 }
 
 object Testing {
-    object Version {
+    private object Version {
         const val jUnit = "4.13.2"
         const val mockitoVersion = "3.+"
     }
@@ -79,7 +80,7 @@ object Testing {
 }
 
 object Espresso {
-    object Version {
+    private object Version {
         const val core = "3.4.0"
         const val runner = "1.4.0"
         const val junitKtx = "1.1.3"
@@ -95,4 +96,12 @@ object Espresso {
     const val fragmentTesting = "androidx.fragment:fragment-testing:${Version.fragment_version}"
     const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:${Version.hiltAndroidTesting}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Version.hiltAndroidTesting}"
+}
+
+object Logging {
+    private object Version {
+        const val timberVersion = "5.0.1"
+    }
+
+    const val timber = "com.jakewharton.timber:timber:${Version.timberVersion}"
 }

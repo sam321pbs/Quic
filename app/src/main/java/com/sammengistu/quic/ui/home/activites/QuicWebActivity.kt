@@ -5,6 +5,7 @@ import android.util.Log
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import com.sammengistu.quic.R
+import timber.log.Timber
 
 class QuicWebActivity: AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class QuicWebActivity: AppCompatActivity() {
         if (!url.isNullOrEmpty()) {
             myWebView.loadUrl(url)
         } else {
-            Log.e(TAG, "Empty URL")
+            Timber.d("Empty URL")
             finish()
         }
     }

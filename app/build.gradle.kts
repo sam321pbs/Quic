@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.sammengistu.quic"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 31
         versionCode = 1
         versionName = "1.0"
@@ -84,6 +84,9 @@ dependencies {
     // glide
     implementation(Glide.glide)
     annotationProcessor(Glide.glideCompiler)
+
+    // timber
+    implementation(Logging.timber)
 
     // testing
     testImplementation(Testing.mockito)
